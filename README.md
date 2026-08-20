@@ -6,9 +6,13 @@
     - Bước 5 : cấu hình database [godashop-laravel-k37.sql]
     - Bước 6 : 
                php artisan key:generate
+
                php artisan cache:clear
+
                php artisan config:clear
+
                php artisan config:cache
+
                php artisan view:clear
 
 * Thông tin version : 
@@ -20,17 +24,27 @@
     ITEM_PER_PAGE=9
 
     NOCAPTCHA_SECRET=secret-key
+
     NOCAPTCHA_SITEKEY=site-key
 
     GUEST=khachvanglai@gmail.com
 
     MAIL_MAILER=smtp
+
     MAIL_HOST=smtp.gmail.com
+
     MAIL_PORT=587
+
     MAIL_USERNAME=nguyenphuochao456@gmail.com
+
     MAIL_PASSWORD=aqehzdwwqqrxdlwz
+
     MAIL_ENCRYPTION=tls
     
     MAIL_SHOP=nguyenphuochao456@gmail.com
+
+* Setup source bằng docker
+    - Bước 1: cd godashop-laravel
+    - Bước 2: docker compose up --build -d
 
     

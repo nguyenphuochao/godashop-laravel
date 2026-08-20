@@ -102,11 +102,11 @@
             <div class="row">
                 <!-- LOGO -->
                 <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 logo">
-                    <a href="{{ route('index') }}"><img src="{{ asset('') }}/images/goda450x170_1.jpg"
+                    <a href="{{ route('index') }}"><img src="{{ asset('') }}images/goda450x170_1.jpg"
                             class="img-responsive"></a>
                 </div>
                 <div class="col-lg-4 col-md-4 hidden-sm hidden-xs call-action">
-                    <a href="{{ route('index') }}"><img src="{{ asset('') }}/images/godakeben450x170.jpg"
+                    <a href="{{ route('index') }}"><img src="{{ asset('') }}images/godakeben450x170.jpg"
                             class="img-responsive"></a>
                 </div>
                 <!-- HOTLINE AND SERCH -->
@@ -145,7 +145,7 @@
         <div class="container">
             <ul class="nav navbar-nav navbar-left hidden-sm hidden-xs">
                 <li class="{{ $currentRouteName == 'index' ? 'active' : '' }}">
-                    <a href="{{ route('index') }}">Trang chủ</a>
+                    <a href="{{ route('index') }}">Trang chủ kaka 123123123</a>
                 </li>
                 <li class="{{ in_array($currentRouteName, ['product.index', 'category.show']) ? 'active' : '' }}">
                     <a href="{{ route('product.index') }}">Sản phẩm</a>
