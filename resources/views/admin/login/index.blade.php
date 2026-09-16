@@ -10,11 +10,11 @@
     <title>Đăng nhập</title>
 
     <!-- Custom fonts for this template-->
-    <link href="{{ asset('') }}/adm/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="{{ asset('') }}adm/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 
     <!-- Custom styles for this template-->
-    <link href="{{ asset('') }}/adm/css/sb-admin.css" rel="stylesheet">
-    <link href="{{ asset('') }}/adm/css/admin.css" rel="stylesheet">
+    <link href="{{ asset('') }}adm/css/sb-admin.css" rel="stylesheet">
+    <link href="{{ asset('') }}adm/css/admin.css" rel="stylesheet">
 </head>
 
 <body class="bg-dark">
@@ -65,11 +65,11 @@
     </div>
 
     <!-- Bootstrap core JavaScript-->
-    <script src="{{ asset('') }}/adm/vendor/jquery/jquery.min.js"></script>
-    <script src="{{ asset('') }}/adm/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ asset('') }}adm/vendor/jquery/jquery.min.js"></script>
+    <script src="{{ asset('') }}adm/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Core plugin JavaScript-->
-    <script src="{{ asset('') }}/adm/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="{{ asset('') }}adm/vendor/jquery-easing/jquery.easing.min.js"></script>
 </body>
 
 </html>

@@ -10,12 +10,12 @@
       <!-- Create favicon -->
       <link rel="shortcut icon" type="image/x-icon" href="{{ asset("") }}/adm/images/logo.jpg" />
       <!-- Custom fonts for this template-->
-      <link href="{{ asset("") }}/adm/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+      <link href="{{ asset("") }}adm/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
       <!-- Page level plugin CSS-->
-      <link href="{{ asset("") }}/adm/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+      <link href="{{ asset("") }}adm/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
       <!-- Custom styles for this template-->
-      <link href="{{ asset("") }}/adm/css/sb-admin.css" rel="stylesheet">
-      <link href="{{ asset("") }}/adm/css/admin.css" rel="stylesheet">
+      <link href="{{ asset("") }}adm/css/sb-admin.css" rel="stylesheet">
+      <link href="{{ asset("") }}adm/css/admin.css" rel="stylesheet">
    </head>
    <body id="page-top">
       <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
@@ -164,17 +164,17 @@
       </div>
 
       <!-- Bootstrap core JavaScript-->
-      <script src="{{ asset("") }}/adm/vendor/jquery/jquery.min.js"></script>
-      <script src="{{ asset("") }}/adm/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+      <script src="{{ asset("") }}adm/vendor/jquery/jquery.min.js"></script>
+      <script src="{{ asset("") }}adm/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
       <!-- Core plugin JavaScript-->
-      <script src="{{ asset("") }}/adm/vendor/jquery-easing/jquery.easing.min.js"></script>
+      <script src="{{ asset("") }}adm/vendor/jquery-easing/jquery.easing.min.js"></script>
       <!-- Page level plugin JavaScript-->
-      <script src="{{ asset("") }}/adm/vendor/datatables/jquery.dataTables.js"></script>
-      <script src="{{ asset("") }}/adm/vendor/datatables/dataTables.bootstrap4.js"></script>
+      <script src="{{ asset("") }}adm/vendor/datatables/jquery.dataTables.js"></script>
+      <script src="{{ asset("") }}adm/vendor/datatables/dataTables.bootstrap4.js"></script>
       <!-- Custom scripts for all pages-->
-      <script src="{{ asset("") }}/adm/js/sb-admin.min.js"></script>
+      <script src="{{ asset("") }}adm/js/sb-admin.min.js"></script>
       <!-- Demo scripts for this page-->
-      <script src="{{ asset("") }}/adm/js/demo/datatables-demo.js"></script>
-      <script src="{{ asset("") }}/adm/js/admin.js"></script>
+      <script src="{{ asset("") }}adm/js/demo/datatables-demo.js"></script>
+      <script src="{{ asset("") }}adm/js/admin.js"></script>
    </body>
 </html>

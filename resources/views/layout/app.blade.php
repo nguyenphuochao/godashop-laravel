@@ -145,7 +145,7 @@
         <div class="container">
             <ul class="nav navbar-nav navbar-left hidden-sm hidden-xs">
                 <li class="{{ $currentRouteName == 'index' ? 'active' : '' }}">
-                    <a href="{{ route('index') }}">Trang chủ kaka 123123123</a>
+                    <a href="{{ route('index') }}">Trang chủ</a>
                 </li>
                 <li class="{{ in_array($currentRouteName, ['product.index', 'category.show']) ? 'active' : '' }}">
                     <a href="{{ route('product.index') }}">Sản phẩm</a>
@@ -223,8 +223,11 @@
                                 <h4>Liên hệ với chúng tôi </h4>
                                 <ul class="list-unstyled">
                                     <li>Phone: 058.4228.904</li>
-                                    <li><a href="mailto:nguyenphuochao123@gmail.com">Mail:
-                                            nguyenphuochao123@gmail.com</a></li>
+                                    <li>
+                                        <a style="word-wrap: break-word" href="mailto:nguyenphuochao123@gmail.com">
+                                            Mail: nguyenphuochao123@gmail.com
+                                        </a>
+                                    </li>
                                 </ul>
                                 <ul class="list-inline">
                                     <li><a href="https://www.facebook.com/HocLapTrinhWebTaiNha.ThayLoc"><i
