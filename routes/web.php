@@ -121,8 +121,19 @@ Route::prefix('admin')->namespace('App\Http\Controllers\Admin')->group(function 
         // category
         Route::get('category', 'CategoryController@index')->name('admin.category.index');
         Route::get('category/create', 'CategoryController@create')->name('admin.category.create');
+        Route::post('category/store', 'CategoryController@store')->name('admin.category.store');
+        Route::get('category/edit/{id}', 'CategoryController@edit')->name('admin.category.edit');
+        Route::post('category/update/{id}', 'CategoryController@update')->name('admin.category.update');
+        Route::post('category/destroy/{id}', 'CategoryController@destroy')->name('admin.category.destroy');
+        Route::post('category/deletes', 'CategoryController@deletes')->name('admin.category.deletes');
         // product
+        Route::get('product', 'ProductController@index')->name('admin.product.index');
         Route::get('product/create', 'ProductController@create')->name('admin.product.create');
         Route::post('product/store', 'ProductController@store')->name('admin.product.store');
+        // role
+        Route::get('role', 'RoleController@index')->name('admin.role.index');
+        Route::get('role/create', 'RoleController@create')->name('admin.role.create');
+        Route::get('role/edit/{id}', 'RoleController@edit')->name('admin.role.edit');
+        Route::get('role/list/action/{id}', 'RoleController@listRoleAction')->name('admin.role.listRoleAction');
     });
 });

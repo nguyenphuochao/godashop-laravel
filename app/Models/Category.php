@@ -8,6 +8,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Category extends Model
 {
+
+    public $timestamps = false;
+
     use HasFactory;
     /**
      * Get all of the comments for the Category

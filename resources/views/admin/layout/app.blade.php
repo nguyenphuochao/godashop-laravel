@@ -75,8 +75,8 @@
             <li class="nav-item dropdown">
                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id=""><i class="fas fa-folder"></i> <span>Danh mục</span></a>
                <div class="dropdown-menu" aria-labelledby="">
-                  <a class="dropdown-item" href="../../pages/category/list.html">Danh sách</a>
-                  <a class="dropdown-item" href="../../pages/category/add.html">Thêm</a>
+                  <a class="dropdown-item" href="{{route("admin.category.index")}}">Danh sách</a>
+                  <a class="dropdown-item" href="{{route("admin.category.create")}}">Thêm</a>
                </div>
             </li>
             <li class="nav-item dropdown">
