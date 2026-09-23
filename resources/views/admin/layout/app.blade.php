@@ -96,15 +96,15 @@
             <li class="nav-item dropdown">
                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id=""><i class="fas fa-users"></i> <span>Nhân viên</span></a>
                <div class="dropdown-menu" aria-labelledby="">
-                  <a class="dropdown-item" href="../../pages/staff/list.html">Danh sách</a>
-                  <a class="dropdown-item" href="../../pages/staff/add.html">Thêm</a>
+                  <a class="dropdown-item" href="{{route("admin.staff.index")}}">Danh sách</a>
+                  <a class="dropdown-item" href="{{route("admin.staff.create")}}">Thêm</a>
                </div>
             </li>
             <li class="nav-item dropdown">
                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id=""><i class="fas fa-user-shield"></i> <span>Phân quyền</span></a>
                <div class="dropdown-menu" aria-labelledby="">
-                  <a class="dropdown-item" href="../../pages/permission/roles.html">Danh sách vai trò</a>
-                  <a class="dropdown-item" href="../../pages/permission/add_role.html">Thêm vai trò</a>
+                  <a class="dropdown-item" href="{{route("admin.role.index")}}">Danh sách vai trò</a>
+                  <a class="dropdown-item" href="{{route("admin.role.create")}}">Thêm vai trò</a>
                   <a class="dropdown-item" href="../../pages/permission/actions.html">Danh sách tác vụ</a>
                </div>
             </li>
