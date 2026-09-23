@@ -2,11 +2,11 @@
 
 namespace App\Policies;
 
+use App\Models\Customer;
 use App\Models\Staff;
-use App\Models\Category;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class CategoryPolicy
+class StaffPolicy
 {
     use HandlesAuthorization;
 
@@ -18,19 +18,18 @@ class CategoryPolicy
      */
     public function viewAny(Staff $staff)
     {
-        return $staff->hasPermission("view_category");
+        return $staff->hasPermission("view_staff");
     }
 
     /**
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\Staff  $staff
-     * @param  \App\Models\Staff  $staff
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(Staff $staff, Category $catgory)
+    public function view(Staff $staff)
     {
-        return false;
+        //
     }
 
     /**
@@ -41,41 +40,39 @@ class CategoryPolicy
      */
     public function create(Staff $staff)
     {
-        return $staff->hasPermission('add_category');
+        return $staff->hasPermission("add_staff");
     }
 
     /**
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\Staff  $staff
-     * @param  \App\Models\Staff  $staff
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(Staff $staff, Category $catgory)
+    public function update(Staff $staff)
     {
-        return $staff->hasPermission('edit_category');
+        //
     }
 
     /**
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\Staff  $staff
-     * @param  \App\Models\Staff  $staff
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(Staff $staff, Category $catgory)
+    public function delete(Staff $staff)
     {
-        return $staff->hasPermission("delete_category");
+        //
     }
 
     /**
      * Determine whether the user can restore the model.
      *
-     * @param  \App\Models\Staff  $staff
+     * @param  \App\Models\Customer  $customer
      * @param  \App\Models\Staff  $staff
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(Staff $staff, Category $catgory)
+    public function restore(Customer $customer, Staff $staff)
     {
         //
     }
@@ -83,11 +80,11 @@ class CategoryPolicy
     /**
      * Determine whether the user can permanently delete the model.
      *
-     * @param  \App\Models\Staff  $staff
+     * @param  \App\Models\Customer  $customer
      * @param  \App\Models\Staff  $staff
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(Staff $staff, Category $catgory)
+    public function forceDelete(Customer $customer, Staff $staff)
     {
         //
     }
