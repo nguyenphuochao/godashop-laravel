@@ -17,7 +17,14 @@
             <form method="post" action="{{ route('admin.category.deletes') }}">
                 @csrf
                 <div class="action-bar">
-                    <a href="{{route("admin.category.create")}}" class="btn btn-primary btn-sm">Thêm</a>
+                    @can("create", "App\Models\Category")
+                        <a href="{{route("admin.category.create")}}" class="btn btn-primary btn-sm">Thêm</a>
+                    @endcan
+
+                    @cannot("create", "App\Models\Category")
+                        <a href="{{route("admin.category.create")}}" class="btn btn-primary btn-sm disabled">Thêm</a>
+                    @endcannot
+
                     <input type="submit" class="btn btn-danger btn-sm" value="Xóa" name="delete">
                 </div>
 

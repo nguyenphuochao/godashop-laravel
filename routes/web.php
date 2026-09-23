@@ -133,7 +133,17 @@ Route::prefix('admin')->namespace('App\Http\Controllers\Admin')->group(function 
         // role
         Route::get('role', 'RoleController@index')->name('admin.role.index');
         Route::get('role/create', 'RoleController@create')->name('admin.role.create');
+        Route::post('role/store', 'RoleController@store')->name('admin.role.store');
         Route::get('role/edit/{id}', 'RoleController@edit')->name('admin.role.edit');
+        Route::post('role/update/{id}', 'RoleController@update')->name('admin.role.update');
         Route::get('role/list/action/{id}', 'RoleController@listRoleAction')->name('admin.role.listRoleAction');
+        Route::post('role/list/action/{roleId}', 'RoleController@updateRoleAction')->name('admin.role.updateRoleAction');
+        // staff
+        Route::get('staff', 'StaffController@index')->name('admin.staff.index');
+        Route::get('staff/create', 'StaffController@create')->name('admin.staff.create');
+        Route::post('staff/store', 'StaffController@store')->name('admin.staff.store');
+        Route::get('staff/edit/{id}', 'StaffController@edit')->name('admin.staff.edit');
+        Route::put('staff/update/{id}', 'StaffController@update')->name('admin.staff.update');
+        Route::delete('staff/destroy/{id}', 'StaffController@destroy')->name('admin.staff.destroy');
     });
 });
