@@ -45,14 +45,14 @@ class Staff extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    protected $permissionList = null;
+    protected ?array $permissionList = null;
 
     public function roles()
     {
         return $this->belongsToMany(Role::class);
     }
 
-    public function hasRole($role)
+    public function hasRole($role = null)
     {
         if (is_string($role)) {
             return $this->roles->contains('name', $role);
