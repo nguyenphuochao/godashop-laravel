@@ -10,6 +10,7 @@ use Illuminate\Database\QueryException;
 
 class CategoryController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -17,6 +18,11 @@ class CategoryController extends Controller
      */
     public function index()
     {
+        $staff = Auth::guard('admin')->user();
+        if (!$staff->can('viewAny', Category::class)) {
+            abort(403);
+        }
+
         $categories = Category::all();
         return view("admin.category.index", ["categories" => $categories]);
     }
@@ -44,6 +50,12 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+        // authorization
+        $staff = Auth::guard('admin')->user();
+        if (!$staff->can('create', Category::class)) {
+            abort(403);
+        }
+
         // validate
         $request->validate([
             "name" => ["required"]
@@ -80,7 +92,12 @@ class CategoryController extends Controller
     {
         $category = Category::findOrFail($id);
 
-        return view("admin.category.edit", compact("category"));
+        $staff = Auth::guard('admin')->user();
+        if (!$staff->can('update', $category)) {
+            abort(403);
+        }
+
+        return view("admin.category.edit", ["category" => $category]);
     }
 
     /**
@@ -92,15 +109,22 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // read category by id, when invalid redirect 403 page
+        $category = Category::findOrFail($id);
+
+        $staff = Auth::guard('admin')->user();
+        if (!$staff->can('update', $category)) {
+            abort(403);
+        }
+
         // validate
         $request->validate([
-            "name" => "required|unique:categories,name," .$id
+            "name" => "required|unique:categories,name," . $id
         ], [
             "name.required" => "Vui lòng nhập tên danh mục",
             "name.unique" => "Tên danh mục này trùng với danh mục đã tồn tại"
         ]);
 
-        $category = Category::findOrFail($id);
         $category->name = $request->name;
         $category->save();
 
@@ -115,8 +139,14 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
+        $category = Category::findOrFail($id);
+
+        $staff = Auth::guard('admin')->user();
+        if (!$staff->can('delete', $category)) {
+            abort(403);
+        }
+
         try {
-            $category = Category::findOrFail($id);
             $category->forceDelete();
             request()->session()->put("success", "Xóa thành công danh mục");
         } catch (QueryException $e) {
@@ -130,9 +160,14 @@ class CategoryController extends Controller
         return redirect()->route('admin.category.index');
     }
 
-    public function deletes(Request $request)
+    public function deletes(Category $category, Request $request)
     {
-        if(empty($request->ids)) {
+        $staff = Auth::guard('admin')->user();
+        if (!$staff->can('delete', $category)) {
+            abort(403);
+        }
+
+        if (empty($request->ids)) {
             $request->session()->put("error", "Vui lòng chọn danh mục cần xóa!");
             return redirect()->route('admin.category.index');;
         }
