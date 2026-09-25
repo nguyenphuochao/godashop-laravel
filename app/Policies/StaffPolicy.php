@@ -51,7 +51,7 @@ class StaffPolicy
      */
     public function update(Staff $staff)
     {
-        //
+        return $staff->hasPermission("edit_staff");
     }
 
     /**

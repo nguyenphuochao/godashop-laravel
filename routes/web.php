@@ -137,7 +137,7 @@ Route::prefix('admin')->namespace('App\Http\Controllers\Admin')->group(function 
         Route::get('role/edit/{id}', 'RoleController@edit')->name('admin.role.edit');
         Route::post('role/update/{id}', 'RoleController@update')->name('admin.role.update');
         Route::get('role/list/action/{id}', 'RoleController@listRoleAction')->name('admin.role.listRoleAction');
-        Route::post('role/list/action/{roleId}', 'RoleController@updateRoleAction')->name('admin.role.updateRoleAction');
+        Route::post('role/list/action/{id}', 'RoleController@updateRoleAction')->name('admin.role.updateRoleAction');
         // staff
         Route::get('staff', 'StaffController@index')->name('admin.staff.index');
         Route::get('staff/create', 'StaffController@create')->name('admin.staff.create');

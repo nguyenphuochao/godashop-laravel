@@ -88,7 +88,7 @@ class StaffController extends Controller
             // throw new Exception($e->getMessage());
         }
 
-        request()->session()->put("success", "Thêm mới thành công nhân viên " .$staff->name);
+        request()->session()->put("success", "Thêm mới thành công nhân viên " . $staff->name);
         return redirect()->route('admin.staff.index');
     }
 
@@ -111,7 +111,18 @@ class StaffController extends Controller
      */
     public function edit($id)
     {
-        echo "View sửa nhân viên";
+        $staff = Staff::findOrFail($id);
+
+        // authorization
+        $this->authorize("update", $staff);
+
+        $roles = Role::all();
+        $roleStaff = DB::table("role_staff")->where("staff_id", "=", $id)->first();
+        return view("admin.staff.edit", [
+            "staff" => $staff,
+            "roles" => $roles,
+            "roleStaff" => $roleStaff
+        ]);
     }
 
     /**
@@ -123,7 +134,46 @@ class StaffController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $staff = Staff::findOrFail($id);
+
+        // authorization
+        $this->authorize("update", $staff);
+
+        // validate
+        $data = $request->validate([
+            "fullname" => "required",
+            "password" => "nullable|min:6",
+            "mobile" => "required",
+            "roleId" => "required",
+            "is_active" => "nullable"
+        ]);
+
+        DB::beginTransaction();
+
+        try {
+            // update staff
+            $staff->update([
+                "name" => $data["fullname"],
+                "mobile" => $data["mobile"],
+                "password" => empty($data["password"]) ? $staff->password : Hash::make($data["password"]),
+                "is_active" => $data["is_active"]
+            ]);
+
+            // update role_staff
+            DB::table("role_staff")
+                ->where("staff_id", $id)
+                ->update([
+                    "role_id" => $data["roleId"]
+                ]);
+
+            DB::commit();
+        } catch (Exception $e) {
+            DB::rollBack();
+            request()->session()->put("error", "Lỗi cập nhật nhân viên");
+        }
+
+        request()->session()->put("success", "Cập nhật thông tin nhân viên " . $staff->name . " thành công");
+        return redirect()->route("admin.staff.index");
     }
 
     /**

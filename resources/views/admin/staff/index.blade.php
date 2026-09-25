@@ -9,6 +9,9 @@
                 </li>
                 <li class="breadcrumb-item active">Nhân viên</li>
             </ol>
+
+            @include("admin.layout.message")
+
             <!-- DataTables Example -->
             <div class="action-bar">
                 <a href="{{route("admin.staff.create")}}" class="btn btn-primary btn-sm">Thêm</a>
@@ -26,6 +29,7 @@
                                     <th>Email</th>
                                     <th>Số điện thoại</th>
                                     <th> Vai trò </th>
+                                    <th>Trạng thái</th>
                                     <th></th>
                                     <th></th>
                                 </tr>
@@ -45,8 +49,17 @@
                                                 }
                                             @endphp
                                         </td>
-                                        <td> <input type="button" onclick="Edit('1');" value="Sửa"
-                                                class="btn btn-warning btn-sm"></td>
+                                        <td>
+                                            @if($staff->is_active == 1)
+                                                <button class="badge badge-success">Hoạt động</button>
+                                            @else
+                                                <button class="badge badge-danger">Bị khóa</button>
+                                            @endif
+
+                                        </td>
+                                        <td>
+                                            <a href="{{route("admin.staff.edit", $staff->id)}}" class="btn btn-warning btn-sm">Sửa</a>
+                                        </td>
                                         <td><input type="button" onclick="Delete('1');" value="Xóa"
                                                 class="btn btn-danger btn-sm"></td>
                                     </tr>
