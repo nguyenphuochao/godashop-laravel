@@ -130,6 +130,7 @@ Route::prefix('admin')->namespace('App\Http\Controllers\Admin')->group(function 
         Route::get('product', 'ProductController@index')->name('admin.product.index');
         Route::get('product/create', 'ProductController@create')->name('admin.product.create');
         Route::post('product/store', 'ProductController@store')->name('admin.product.store');
+        Route::get('product/edit/{id}', 'ProductController@edit')->name('admin.product.edit');
         // role
         Route::get('role', 'RoleController@index')->name('admin.role.index');
         Route::get('role/create', 'RoleController@create')->name('admin.role.create');

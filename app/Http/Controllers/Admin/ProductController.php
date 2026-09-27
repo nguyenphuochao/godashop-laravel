@@ -3,10 +3,22 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreProductRequest;
+use App\Models\Product;
+use App\Services\ProductService;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
+    protected $productService;
+
+    // Dependency injection via constructor
+    public function __construct(ProductService $productService)
+    {
+        $this->productService = $productService;
+    }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +26,13 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        // authorization
+        $this->authorize("viewAny", Product::class);
+
+        $products = $this->productService->getAll();
+        return view("admin.product.index", [
+            "products" => $products
+        ]);
     }
 
     /**
@@ -24,6 +42,10 @@ class ProductController extends Controller
      */
     public function create()
     {
+        // authorization
+        $this->authorize("create", Product::class);
+
+        // return view
         return view('admin.product.create');
     }
 
@@ -33,8 +55,11 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreProductRequest $request)
     {
+        // authorization
+        $this->authorize("create", Product::class);
+
         if (!$request->hasFile('featured_image')) {
             echo 'File hình bị lỗi';
             exit;
@@ -45,6 +70,18 @@ class ProductController extends Controller
         $request->file('featured_image')->storeAs(
             'images', $filename, 'godapublic'
         );
+
+        $data = $request->all();
+        $data["featured_image"] = $filename;
+
+        // dd($data);
+
+        // call product service -> create product
+        $product = $this->productService->create($data);
+
+        // return
+        request()->session()->put("success", "Thêm mới thành công sản phẩm ". $product->name);
+        return redirect()->route("admin.product.index");
     }
 
     /**
@@ -66,7 +103,10 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        //
+        $product = $this->productService->edit($id);
+
+        dd($product);
+        return view("admin.product.edit");
     }
 
     /**
