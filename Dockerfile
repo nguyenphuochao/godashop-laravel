@@ -1,11 +1,42 @@
-FROM php:7.4-fpm-alpine
+FROM php:8.1-fpm-alpine
 
+# Set working directory
+ARG workdir=/var/www
+
+WORKDIR $workdir
+
+# Install system dependencies
+RUN apk update
+RUN apk add --no-cache \
+    libjpeg-turbo-dev \
+    libpng-dev \
+    libwebp-dev \
+    freetype-dev \
+    libzip-dev \
+    zip \
+    bash \
+    dos2unix
+
+# Install PHP extensions
 RUN docker-php-ext-install pdo pdo_mysql
-RUN curl -sS https://getcomposer.org/installer | php -- \
-        --install-dir=/usr/local/bin --filename=composer
+RUN docker-php-ext-install mysqli && docker-php-ext-enable mysqli
+RUN docker-php-ext-install exif
+RUN docker-php-ext-install zip
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg
+RUN docker-php-ext-install -j$(nproc) gd
 
-WORKDIR /app
+#syns php.init
+COPY ./docker/php/php.ini /usr/local/etc/php/
+
 COPY . .
-RUN composer install
 
-CMD php artisan serve --host=0.0.0.0
+# Get latest Composer
+COPY --from=composer /usr/bin/composer /usr/bin/composer
+
+# Copy the docker-app-start.sh script from the local directory into the container
+COPY docker-start.sh /var/www/
+
+# Set executable permission for docker-app-start.sh
+RUN chmod +x /var/www/docker-start.sh
+
+CMD ["/var/www/docker-start.sh"]
