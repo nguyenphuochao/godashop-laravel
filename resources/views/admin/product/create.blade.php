@@ -19,20 +19,27 @@
                 <div class="form-group row">
                     <label class="col-md-12 control-label" for="name">Barcode </label>
                     <div class="col-md-9 col-lg-6">
-                        <input name="barcode" id="barcode" type="text" class="form-control">
+                        <input name="barcode" id="barcode" type="text" class="form-control" value="{{old("barcode")}}">
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-md-12 control-label" for="name">SKU </label>
+                    <div class="col-md-9 col-lg-6">
+                        <input name="sku" id="sku" type="text" class="form-control"  value="{{old("sku")}}">
                     </div>
                 </div>
 
                 <div class="form-group row">
                     <label class="col-md-12 control-label" for="name">Tên </label>
                     <div class="col-md-9 col-lg-6">
-                        <input name="name" id="name" type="text" value="" class="form-control">
+                        <input name="name" id="name" type="text" class="form-control" value="{{old("name")}}">
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-md-12 control-label" for="wholesale-price">Giá bán lẻ </label>
                     <div class="col-md-9 col-lg-6">
-                        <input name="wholesale_price" id="wholesale_price" type="text" value=""
+                        <input name="wholesale_price" id="wholesale_price" type="text" value="{{old("wholesale_price")}}"
                             class="form-control">
                     </div>
                 </div>
@@ -40,7 +47,7 @@
                 <div class="form-group row">
                     <label class="col-md-12 control-label" for="inventory-number">Lượng tồn</label>
                     <div class="col-md-9 col-lg-6">
-                        <input name="inventory_number" id="inventory_number" type="text" value=""
+                        <input name="inventory_number" id="inventory_number" type="text" value="{{old("inventory_number")}}"
                             class="form-control">
                     </div>
                 </div>
@@ -49,19 +56,30 @@
                     <label class="col-md-12 control-label" for="category">Danh mục </label>
                     <div class="col-md-9 col-lg-6">
                         <select name="category" id="category" class="form-control">
-                            <option value="Kem Chống Nắng">Kem Chống Nắng</option>
-                            <option value="Kem Dưỡng Da">Kem Dưỡng Da</option>
-                            <option value="Kem Trị Mụn">Kem Trị Mụn</option>
-                            <option value="Kem Trị Thâm Nám">Kem Trị Thâm Nám</option>
-                            <option value="Sữa Rửa Mặt">Sữa Rửa Mặt</option>
-                            <option value="Sữa Tắm">Sữa Tắm</option>
+                            <option value="">--Vui lòng chọn danh mục--</option>
+                            @foreach (\App\Models\Category::all() as $cat)
+                                <option @if($cat->id == old("category")) selected @endif value="{{$cat->id}}">{{$cat->name}}</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>
+
+                <div class="form-group row">
+                    <label class="col-md-12 control-label" for="branch">Thương hiệu</label>
+                    <div class="col-md-9 col-lg-6">
+                        <select name="branch" id="branch" class="form-control">
+                            <option value="">--Vui lòng chọn thương hiệu--</option>
+                            @foreach (\App\Models\Brand::all() as $branch)
+                                <option @if($branch->id == old("branch")) selected @endif value="{{$branch->id}}">{{$branch->name}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+
                 <div class="form-group row">
                     <label class="col-md-12 control-label">Nổi bật</label>
                     <div class="col-md-9 col-lg-6">
-                        <input type="checkbox" value="1" name="featured">
+                        <input type="checkbox" value="1" name="featured" @if(old("featured") == 1) checked @endif>
                     </div>
                 </div>
                 <div class="form-group row">
@@ -73,7 +91,7 @@
                 <div class="form-group row">
                     <label class="col-md-12 control-label" for="description">Mô tả</label>
                     <div class="col-md-12">
-                        <textarea name="description" id="description" rows="10" cols="80"></textarea>
+                        <textarea name="description" id="description" rows="10" cols="80">{{old("description")}}</textarea>
                     </div>
 
                 </div>
@@ -86,15 +104,6 @@
                 CKEDITOR.replace('description');
             </script>
             <!-- /form -->
-            <!-- /.container-fluid -->
-            <!-- Sticky Footer -->
-            <footer class="sticky-footer">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>Copyright © Thầy Lộc 2017</span>
-                    </div>
-                </div>
-            </footer>
         </div>
         <!-- /.content-wrapper -->
     </div>

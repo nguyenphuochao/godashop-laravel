@@ -24,11 +24,13 @@ class StoreProductRequest extends FormRequest
     public function rules()
     {
         return [
-            "barcode" => "required|digits:13s|unique:products,barcode",
+            "barcode" => "required|digits:13|unique:products,barcode",
+            "sku" => "required|unique:products,sku",
             "name" => "required",
             "wholesale_price" => "required",
             "inventory_number" => "required",
             "category" => "required",
+            "branch" => "required",
             "featured_image" => "required",
             "description" => "required",
         ];
@@ -43,7 +45,14 @@ class StoreProductRequest extends FormRequest
     {
         return [
             'barcode.required' => 'Vui lòng nhập barcode',
-            'name.required' => 'Vui lòng nhập tên danh mục',
+            'name.required' => 'Vui lòng nhập tên sản phẩm',
+            'sku.required' => 'Vui lòng nhập mã SKU',
+            'wholesale_price.required' => 'Vui lòng nhập giá bán lẻ',
+            'inventory_number.required' => 'Vui lòng nhập số lượng tồn kho',
+            'category.required' => 'Vui lòng chọn danh mục',
+            'branch.required' => 'Vui lòng chọn thương hiệu',
+            'featured_image.required' => 'Vui lòng hình ảnh',
+            'description.required' => 'Vui lòng nhập mô tả',
         ];
     }
 }

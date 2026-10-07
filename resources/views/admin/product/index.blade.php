@@ -9,9 +9,12 @@
                 </li>
                 <li class="breadcrumb-item active">Sản phẩm</li>
             </ol>
+
+            @include("admin.layout.message")
+
             <!-- DataTables Example -->
             <div class="action-bar">
-                <input type="submit" class="btn btn-primary btn-sm" value="Thêm" name="add">
+                <a href="{{route("admin.product.create")}}" class="btn btn-primary btn-sm" name="add">Thêm</a>
                 <input type="submit" class="btn btn-danger btn-sm" value="Xóa" name="delete">
             </div>
             <div class="card mb-3">

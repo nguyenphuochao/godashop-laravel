@@ -15,8 +15,8 @@
         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id=""><i
                 class="fab fa-product-hunt"></i> <span>Sản phẩm</span></a>
         <div class="dropdown-menu" aria-labelledby="">
-            <a class="dropdown-item" href="../../pages/product/list.html">Danh sách</a>
-            <a class="dropdown-item" href="../../pages/product/add.html">Thêm</a>
+            <a class="dropdown-item" href="{{route("admin.product.index")}}">Danh sách</a>
+            <a class="dropdown-item" href="{{route("admin.product.create")}}">Thêm</a>
         </div>
     </li>
     <li class="nav-item dropdown">

@@ -74,8 +74,6 @@ class ProductController extends Controller
         $data = $request->all();
         $data["featured_image"] = $filename;
 
-        // dd($data);
-
         // call product service -> create product
         $product = $this->productService->create($data);
 
@@ -105,7 +103,6 @@ class ProductController extends Controller
     {
         $product = $this->productService->edit($id);
 
-        dd($product);
         return view("admin.product.edit");
     }
 
