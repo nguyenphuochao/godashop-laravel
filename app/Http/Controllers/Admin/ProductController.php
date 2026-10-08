@@ -5,11 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Exports\ProductExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProductRequest;
-use App\Imports\ProductImport;
 use App\Models\Product;
 use App\Services\ProductService;
 use Illuminate\Http\Request;
-use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Database\QueryException;
 
 class ProductController extends Controller
@@ -145,24 +143,15 @@ class ProductController extends Controller
             return redirect()->route('admin.product.index');;
         }
 
-        try {
-            Product::whereIn('id', $request->ids)->forceDelete();
-            request()->session()->put("success", "Đã xóa sản phẩm thành công");
-        } catch (QueryException $e) {
-            if ($e->getCode() == 23000) {
-                request()->session()->put("error", "Danh mục đang chứa sản phẩm đăng kí, không thể xóa");
-            } else {
-                request()->session()->put("error", $e->getMessage());
-            }
-        }
+       $this->productService->deleteSelected($request->ids);
 
+        request()->session()->put("success", "Đã xóa sản phẩm thành công");
         return redirect()->route('admin.product.index');
     }
 
     public function exportCSV(Request $request)
     {
-        $time = time();
-        return Excel::download(new ProductExport($request->ids), "product_list_$time.xlsx");
+        $this->productService->export($request->ids);
     }
 
     public function formImportCSV()
@@ -174,8 +163,7 @@ class ProductController extends Controller
     {
         // validate file invalid
 
-
-        Excel::import(new ProductImport, request()->file('excel'));
+        $this->productService->import(request()->file('excel'));
 
         request()->session()->put("success", "Import file data thành công");
         return redirect()->route("admin.product.index");

@@ -2,9 +2,12 @@
 
 namespace App\Services;
 
+use App\Exports\ProductExport;
+use App\Imports\ProductImport;
 use App\Models\Product;
 use App\Models\ViewProduct;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Database\QueryException;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ProductService
 {
@@ -44,13 +47,27 @@ class ProductService
 
     public function update(array $data)
     {
-        return Product::update([
-
-        ]);
+        return Product::update([]);
     }
 
     public function destroy($id)
     {
         Product::destroy($id);
+    }
+
+    public function deleteSelected($ids)
+    {
+        Product::whereIn('id', $ids)->forceDelete();
+    }
+
+    public function export($ids)
+    {
+        $time = time();
+        return Excel::download(new ProductExport($ids), "product_list_$time.xlsx");
+    }
+
+    public function import($file)
+    {
+        Excel::import(new ProductImport, $file);
     }
 }
