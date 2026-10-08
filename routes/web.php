@@ -131,6 +131,10 @@ Route::prefix('admin')->namespace('App\Http\Controllers\Admin')->group(function 
         Route::get('product/create', 'ProductController@create')->name('admin.product.create');
         Route::post('product/store', 'ProductController@store')->name('admin.product.store');
         Route::get('product/edit/{id}', 'ProductController@edit')->name('admin.product.edit');
+        Route::post("product/deletes", 'ProductController@deletes')->name('admin.product.deletes');
+        Route::post("product/exportcsv", 'ProductController@exportCSV')->name('admin.product.exportCSV');
+        Route::get("product/formimport", 'ProductController@formImportCSV')->name('admin.product.formImportCSV');
+        Route::post("product/importcsv", 'ProductController@importCSV')->name('admin.product.importCSV');
         // role
         Route::get('role', 'RoleController@index')->name('admin.role.index');
         Route::get('role/create', 'RoleController@create')->name('admin.role.create');

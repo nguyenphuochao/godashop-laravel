@@ -59,13 +59,13 @@ class ProductPolicy
     /**
      * Determine whether the user can delete the model.
      *
-     * @param  \App\Models\Customer  $customer
+     * @param  \App\Models\Staff  $staff
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(Customer $customer, Product $product)
+    public function delete(Staff $staff, Product $product)
     {
-        //
+        return $staff->hasPermission("delete_product");
     }
 
     /**

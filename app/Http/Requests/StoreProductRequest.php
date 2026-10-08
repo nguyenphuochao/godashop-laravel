@@ -25,7 +25,7 @@ class StoreProductRequest extends FormRequest
     {
         return [
             "barcode" => "required|digits:13|unique:products,barcode",
-            "sku" => "required|unique:products,sku",
+            "sku" => "required|max:20|unique:products,sku",
             "name" => "required",
             "wholesale_price" => "required",
             "inventory_number" => "required",

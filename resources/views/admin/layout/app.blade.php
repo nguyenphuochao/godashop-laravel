@@ -93,5 +93,7 @@
       <!-- Demo scripts for this page-->
       <script src="{{ asset("") }}adm/js/demo/datatables-demo.js"></script>
       <script src="{{ asset("") }}adm/js/admin.js"></script>
+      {{-- Location for page-specific JavaScript --}}
+      @stack("custom-script")
    </body>
 </html>
