@@ -14,7 +14,7 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($categorySlug = null, Request $request)
+    public function index(Request $request, $categorySlug = null)
     {
         $catId = null;
         $selectedCategoryName = "Tất cả sản phẩm";
