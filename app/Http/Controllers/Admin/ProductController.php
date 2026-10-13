@@ -151,7 +151,7 @@ class ProductController extends Controller
 
     public function exportCSV(Request $request)
     {
-        $this->productService->export($request->ids);
+        return $this->productService->export($request->ids);
     }
 
     public function formImportCSV()

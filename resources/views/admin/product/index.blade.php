@@ -15,15 +15,15 @@
             <!-- DataTables Example -->
             <div class="action-bar">
                 <a href="{{route("admin.product.create")}}" class="btn btn-primary btn-sm" name="add">Thêm</a>
-                <a href="{{route("admin.product.deletes")}}" class="btn btn-danger btn-sm action" name="delete">Xóa<a>
+                <input type="button" data-url="{{route("admin.product.deletes")}}" class="btn btn-danger btn-sm action" value="Xóa" name="delete">
 
                 <div class="dropdown" style="display: inline-block">
                     <button class="btn btn-success btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Xuất CSV
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item action" href="{{route("admin.product.exportCSV")}}">Tất cả</a>
-                        <a class="dropdown-item action disabled" href="{{route("admin.product.exportCSV")}}" id="selectedExport">Các mục đã chọn</a>
+                        <a class="dropdown-item action" data-url="{{route("admin.product.exportCSV")}}">Tất cả</a>
+                        <a class="dropdown-item action disabled" tabindex="-1" data-url="{{route("admin.product.exportCSV")}}" id="selectedExport">Các mục đã chọn</a>
                     </div>
                 </div>
                 <a href="{{route("admin.product.formImportCSV")}}" class="btn btn-info btn-sm" id="exportCsv">Nhập CSV</a>
@@ -96,7 +96,7 @@
         $('.action').click(function(e){
             e.preventDefault();
 
-            const action = $(this).attr("href");
+            const action = $(this).attr("data-url");
             $("#formProduct").attr("action", action)
             $("#formProduct").submit();
         });
