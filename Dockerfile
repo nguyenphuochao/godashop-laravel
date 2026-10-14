@@ -39,4 +39,11 @@ COPY docker-start.sh /var/www/
 # Set executable permission for docker-app-start.sh
 RUN chmod +x /var/www/docker-start.sh
 
+# Set correct permission
+RUN chmod -R 755 /var/www/storage
+RUN chmod -R 755 /var/www/storage/logs
+RUN chmod -R 755 /var/www/storage/framework
+RUN chmod -R 755 /var/www/storage/framework/sessions
+RUN chmod -R 755 /var/www/bootstrap
+
 CMD ["/var/www/docker-start.sh"]
