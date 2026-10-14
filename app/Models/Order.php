@@ -11,6 +11,8 @@ class Order extends Model
 {
     public $timestamps = false;
 
+    protected $fillable = ["order_status_id", "staff_id"];
+
     use HasFactory;
 
     public function orderItems(): HasMany

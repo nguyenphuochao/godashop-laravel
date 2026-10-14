@@ -1,6 +1,6 @@
 <ul class="sidebar navbar-nav">
     <li class="nav-item active">
-        <a class="nav-link" href="../../pages/dashboard/index.html"><i class="fas fa-fw fa-tachometer-alt"></i> <span>Tổng
+        <a class="nav-link" href="{{route("dashboard")}}"><i class="fas fa-fw fa-tachometer-alt"></i> <span>Tổng
                 quan</span></a>
     </li>
     <li class="nav-item dropdown">

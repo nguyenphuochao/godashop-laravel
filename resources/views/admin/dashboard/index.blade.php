@@ -7,25 +7,31 @@
                 <li class="breadcrumb-item active">Tổng quan</li>
             </ol>
             <div class="mb-3 my-3">
-                <a href="#" class="active btn btn-primary">Hôm nay</a>
-                <a href="#" class="btn btn-primary">Hôm qua</a>
-                <a href="#" class="btn btn-primary">Tuần này</a>
-                <a href="#" class="btn btn-primary">Tháng này</a>
-                <a href="#" class="btn btn-primary">3 tháng</a>
-                <a href="#" class="btn btn-primary">Năm này</a>
+                <a href="?order_date=today" class="{{in_array(request()->order_date, ["today", ""]) ? "active" : ""}} btn btn-primary">Hôm nay</a>
+                <a href="?order_date=yesterday" class="{{request()->order_date == "yesterday" ? "active" : ""}} btn btn-primary">Hôm qua</a>
+                <a href="?order_date=this-week" class="{{request()->order_date == "this-week" ? "active" : ""}} btn btn-primary">Tuần này</a>
+                <a href="?order_date=this-month" class="{{request()->order_date == "this-month" ? "active" : ""}} btn btn-primary">Tháng này</a>
+                <a href="?order_date=3-month" class="{{request()->order_date == "3-month" ? "active" : ""}} btn btn-primary">3 tháng</a>
+                <a href="?order_date=this-year" class="{{request()->order_date == "this-year" ? "active" : ""}} btn btn-primary">Năm này</a>
                 <div class="dropdown" style="display:inline-block">
-                    <a class="btn btn-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                        <div style="margin:20px">
-                            Từ ngày <input type="date" class="form-control" id="usr">
-                            Đến ngày <input type="date" class="form-control" id="usr">
-                            <br>
-                            <input type="submit" value="Tìm" class="btn btn-primary form-control">
+                    <form action="{{route("dashboard")}}">
+                        <a class="btn btn-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <div style="margin:20px">
+                                Từ ngày <input type="date" class="form-control" id="usr" name="from_date" value="{{request()->from_date}}" required>
+                                Đến ngày <input type="date" class="form-control" id="usr" name="to_date" value="{{request()->to_date}}" required>
+                                <input type="hidden" name="order_date" value="custom-date">
+                                <br>
+                                <input type="submit" value="Tìm" class="btn btn-primary form-control">
+                            </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
+
+            @include("admin.layout.message")
+
             <!-- Icon Cards-->
             <div class="row">
                 <div class="col-xl-4 col-sm-6 mb-3">
@@ -146,7 +152,14 @@
                                             {{ $order->ward->district->province->name }}
                                         </td>
                                         <td>{{ !empty($order->staff) ? $order->staff->name : '' }}</td>
-                                        <td><input type="button" onclick="Confirm('1');" value="Xác nhận" class="btn btn-primary btn-sm"></td>
+                                        <td>
+                                            @if(empty($order->staff))
+                                                <form action="{{route("admin.order.confirm", $order->id)}}" method="post">
+                                                    @csrf
+                                                    <input type="submit" value="Xác nhận" class="btn btn-primary btn-sm">
+                                                </form>
+                                            @endif
+                                        </td>
                                         <td><input type="button" onclick="Edit('1');" value="Sửa" class="btn btn-warning btn-sm"></td>
                                         <td><input type="button" onclick="Delete('1');" value="Xóa" class="btn btn-danger btn-sm"></td>
                                     </tr>

@@ -15,7 +15,7 @@
             <!-- DataTables Example -->
             <div class="action-bar">
                 <a href="{{route("admin.product.create")}}" class="btn btn-primary btn-sm" name="add">Thêm</a>
-                <input type="button" data-url="{{route("admin.product.deletes")}}" class="btn btn-danger btn-sm action" value="Xóa" name="delete">
+                <input type="button" data-url="{{route("admin.product.deletes")}}" class="btn btn-danger btn-sm action" disabled value="Xóa" name="delete">
 
                 <div class="dropdown" style="display: inline-block">
                     <button class="btn btn-success btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -63,9 +63,9 @@
                                             <td>#{{$product->id}}</td>
                                             <td>{{$product->name}}</td>
                                             <td><img src="../../images/{{$product->featured_image}}"></td>
-                                            <td>{{$product->price}} ₫</td>
+                                            <td>{{number_format($product->price)}} ₫</td>
                                             <td>{{$product->discount_percentage}}%</td>
-                                            <td>{{$product->sale_price}} ₫</td>
+                                            <td>{{number_format($product->sale_price)}} ₫</td>
                                             <td>{{$product->inventory_qty}}</td>
                                             <td>{{$product->star}}</td>
                                             <td>{{$product->featured === 1 ? "Có" : ""}}</td>
@@ -96,6 +96,13 @@
         $('.action').click(function(e){
             e.preventDefault();
 
+            // handle confirm delete mutil
+            if($(this).attr("name") === "delete") {
+                if(!confirm("Bạn chắc xóa những mục đã chọn?")) {
+                    return;
+                }
+            }
+
             const action = $(this).attr("data-url");
             $("#formProduct").attr("action", action)
             $("#formProduct").submit();
@@ -103,8 +110,10 @@
 
         $('input[name="ids[]"]').change(function() {
             if($('input[name="ids[]"]:checked').length > 0) {
+                $('input[name=delete]').removeAttr("disabled");
                 $("#selectedExport").removeClass("disabled");
             } else {
+                $('input[name=delete]').attr("disabled", "disabled");
                 $("#selectedExport").addClass("disabled");
             }
         })
