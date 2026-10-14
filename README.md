@@ -1,4 +1,4 @@
-* Hướng dẫn setup source :
+* Hướng dẫn setup source bằng xampp hoặc laragon:
     - Bước 1 : git clone source từ github
     - Bước 2 : copy .env.example => .env
     - Bước 3 : composer update
@@ -17,7 +17,7 @@
 
 * Thông tin version : 
     - PHP : 7.3 | 8.0
-    - Laravel : 8.x
+    - Laravel : 8.12
 
 * Setup những thứ cần thiết trong .env -> php artisan config:clear
 
@@ -35,16 +35,17 @@
 
     MAIL_PORT=587
 
-    MAIL_USERNAME=nguyenphuochao456@gmail.com
+    MAIL_USERNAME=your_gmail
 
-    MAIL_PASSWORD=aqehzdwwqqrxdlwz
+    MAIL_PASSWORD=your_password
 
     MAIL_ENCRYPTION=tls
     
-    MAIL_SHOP=nguyenphuochao456@gmail.com
+    MAIL_SHOP=your_gmail
 
 * Setup source bằng docker
-    - Bước 1: cd godashop-laravel
-    - Bước 2: docker compose up --build -d
+    - Bước 1: install docker
+    - Bước 2: cd godashop-laravel
+    - Bước 3: docker compose up --build -d
 
     
