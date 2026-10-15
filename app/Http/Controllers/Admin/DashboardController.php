@@ -16,14 +16,14 @@ class DashboardController extends Controller
      */
     public function index(Request $request)
     {
-        $conds = [];
-
         $type = $request->type;
         $from_date = (!empty($request->from_date) ? $request->from_date : date("Y-m-d")) . " 00:00:00";
         $to_date = (!empty($request->to_date) ? $request->to_date : date("Y-m-d")) . " 23:59:59";
 
-        $conds[] = ["created_date", ">=", $from_date];
-        $conds[] = ["created_date", "<=", $to_date];
+        $conds = [
+            ["created_date", ">=", $from_date],
+            ["created_date", "<=", $to_date]
+        ];
 
         $orders = Order::where($conds)->get();
 
