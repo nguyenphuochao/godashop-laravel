@@ -7,21 +7,21 @@
                 <li class="breadcrumb-item active">Tổng quan</li>
             </ol>
             <div class="mb-3 my-3">
-                <a href="?order_date=today" class="{{in_array(request()->order_date, ["today", ""]) ? "active" : ""}} btn btn-primary">Hôm nay</a>
-                <a href="?order_date=yesterday" class="{{request()->order_date == "yesterday" ? "active" : ""}} btn btn-primary">Hôm qua</a>
-                <a href="?order_date=this-week" class="{{request()->order_date == "this-week" ? "active" : ""}} btn btn-primary">Tuần này</a>
-                <a href="?order_date=this-month" class="{{request()->order_date == "this-month" ? "active" : ""}} btn btn-primary">Tháng này</a>
-                <a href="?order_date=3-month" class="{{request()->order_date == "3-month" ? "active" : ""}} btn btn-primary">3 tháng</a>
-                <a href="?order_date=this-year" class="{{request()->order_date == "this-year" ? "active" : ""}} btn btn-primary">Năm này</a>
+                <a href="?type=today&from_date=<?= date("Y-m-d") ?>&to_date=<?= date("Y-m-d") ?>" class="{{in_array($type, ["today", ""]) ? "active" : ""}} btn btn-primary">Hôm nay</a>
+                <a href="?type=yesterday&from_date=<?= date("Y-m-d", strtotime("yesterday")) ?>&to_date=<?= date("Y-m-d", strtotime("yesterday")) ?>" class="{{$type == "yesterday" ? "active" : ""}} btn btn-primary">Hôm qua</a>
+                <a href="?type=thisweek&from_date=<?= date("Y-m-d", strtotime("monday this week")) ?>&to_date=<?= date("Y-m-d") ?>" class="{{$type == "thisweek" ? "active" : ""}} btn btn-primary">Tuần này</a>
+                <a href="?type=thismonth&from_date=<?= date("Y-m-01") ?>&to_date=<?= date("Y-m-d") ?>" class="{{$type == "thismonth" ? "active" : ""}} btn btn-primary">Tháng này</a>
+                <a href="?type=3months&from_date=<?= date("Y-m-d", strtotime("-3 months")) ?>&to_date=<?= date("Y-m-d") ?>" class="{{$type == "3months" ? "active" : ""}} btn btn-primary">3 tháng</a>
+                <a href="?type=thisyear&from_date=<?= date("Y-01-01") ?>&to_date=<?= date("Y-m-d") ?>" class="{{$type == "thisyear" ? "active" : ""}} btn btn-primary">Năm này</a>
                 <div class="dropdown" style="display:inline-block">
                     <form action="{{route("dashboard")}}">
                         <a class="btn btn-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                             <div style="margin:20px">
-                                Từ ngày <input type="date" class="form-control" id="usr" name="from_date" value="{{request()->from_date}}" required>
-                                Đến ngày <input type="date" class="form-control" id="usr" name="to_date" value="{{request()->to_date}}" required>
-                                <input type="hidden" name="order_date" value="custom-date">
+                                Từ ngày <input type="date" class="form-control" name="from_date" value="{{request()->from_date}}" required>
+                                Đến ngày <input type="date" class="form-control" name="to_date" value="{{request()->to_date}}" required>
+                                <input type="hidden" name="type" value="custom">
                                 <br>
                                 <input type="submit" value="Tìm" class="btn btn-primary form-control">
                             </div>
