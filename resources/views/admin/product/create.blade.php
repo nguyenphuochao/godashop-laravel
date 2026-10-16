@@ -39,7 +39,7 @@
                 <div class="form-group row">
                     <label class="col-md-12 control-label" for="wholesale-price">Giá bán lẻ </label>
                     <div class="col-md-9 col-lg-6">
-                        <input name="wholesale_price" id="wholesale_price" type="text" value="{{old("wholesale_price")}}"
+                        <input name="wholesale_price" id="wholesale_price" type="number" value="{{old("wholesale_price")}}"
                             class="form-control">
                     </div>
                 </div>
@@ -65,12 +65,12 @@
                 </div>
 
                 <div class="form-group row">
-                    <label class="col-md-12 control-label" for="branch">Thương hiệu</label>
+                    <label class="col-md-12 control-label" for="brand">Thương hiệu</label>
                     <div class="col-md-9 col-lg-6">
-                        <select name="branch" id="branch" class="form-control">
+                        <select name="brand" id="brand" class="form-control">
                             <option value="">--Vui lòng chọn thương hiệu--</option>
-                            @foreach (\App\Models\Brand::all() as $branch)
-                                <option @if($branch->id == old("branch")) selected @endif value="{{$branch->id}}">{{$branch->name}}</option>
+                            @foreach (\App\Models\Brand::all() as $brand)
+                                <option @if($brand->id == old("brand")) selected @endif value="{{$brand->id}}">{{$brand->name}}</option>
                             @endforeach
                         </select>
                     </div>

@@ -7,6 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
+    use HasFactory;
+
+    public $timestamps = false;
+
     protected $table = "products";
 
     protected $fillable = [
@@ -26,8 +30,4 @@ class Product extends Model
         "star",
         "featured",
     ];
-
-    public $timestamps = false;
-
-    use HasFactory;
 }

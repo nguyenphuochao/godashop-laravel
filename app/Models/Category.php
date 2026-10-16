@@ -11,6 +11,8 @@ class Category extends Model
 
     public $timestamps = false;
 
+    protected $fillable = ['name'];
+
     use HasFactory;
     /**
      * Get all of the comments for the Category

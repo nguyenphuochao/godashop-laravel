@@ -154,3 +154,8 @@ Route::prefix('admin')->namespace('App\Http\Controllers\Admin')->group(function 
         Route::delete('staff/destroy/{id}', 'StaffController@destroy')->name('admin.staff.destroy');
     });
 });
+
+// Feature test
+Route::get('/test', function() {
+    return response("OK", 200);
+});
