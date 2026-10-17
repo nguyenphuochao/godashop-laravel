@@ -58,7 +58,6 @@
                                 <tbody>
                                     @foreach ($products as $product)
                                         <tr>
-
                                             <td><input type="checkbox" name="ids[]" value="{{$product->id}}"></td>
                                             <td>#{{$product->id}}</td>
                                             <td>{{$product->name}}</td>
@@ -75,8 +74,15 @@
                                             <td><a href="../../pages/image/list.html">Hình ảnh</a></td>
                                             <td><input type="button" onclick="Edit('25');" value="Sửa"
                                                     class="btn btn-warning btn-sm"></td>
-                                            <td><input type="button" onclick="Delete('25');" value="Xóa"
-                                                    class="btn btn-danger btn-sm"></td>
+                                            <td>
+                                                <input
+                                                    type="button"
+                                                    url="{{route("admin.product.destroy", ["product" => $product->id])}}"
+                                                    data-name="{{$product->name}}"
+                                                    value="Xóa"
+                                                    class="btn btn-danger btn-sm destroy"
+                                                >
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -84,6 +90,12 @@
                         </div>
                     </div>
                 </div>
+            </form>
+
+            {{-- Form support delete --}}
+            <form action="#" method="post" id="formDelete">
+                @csrf
+                @method("DELETE")
             </form>
 
         </div>
@@ -104,7 +116,7 @@
             }
 
             const action = $(this).attr("data-url");
-            $("#formProduct").attr("action", action)
+            $("#formProduct").attr("action", action);
             $("#formProduct").submit();
         });
 
@@ -116,7 +128,19 @@
                 $('input[name=delete]').attr("disabled", "disabled");
                 $("#selectedExport").addClass("disabled");
             }
-        })
+        });
+
+        $(".destroy").click(function (e) {
+            e.preventDefault();
+
+            const url = $(this).attr("url");
+            const productName = $(this).data("name");
+
+            if(confirm("Bạn chắc xóa sản phẩm " + productName)) {
+                $("#formDelete").attr("action", url);
+                $("#formDelete").submit();
+            }
+        });
 
     </script>
 @endpush

@@ -98,12 +98,12 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Product $product)
     {
-        $product = $this->productService->edit($id);
+        $product = $this->productService->edit($product);
 
         return view("admin.product.edit", [
             "product" => $product
@@ -125,12 +125,17 @@ class ProductController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Product $product)
     {
-        //
+        // authorization
+        $this->authorize("delete", $product);
+
+        $this->productService->destroy($product);
+
+        return redirect()->route('admin.product.index');
     }
 
     public function deletes(Product $product, Request $request)
@@ -143,7 +148,7 @@ class ProductController extends Controller
             return redirect()->route('admin.product.index');;
         }
 
-       $this->productService->deleteSelected($request->ids);
+        $this->productService->deleteSelected($request->ids);
 
         request()->session()->put("success", "Đã xóa sản phẩm thành công");
         return redirect()->route('admin.product.index');

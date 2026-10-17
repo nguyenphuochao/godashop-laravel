@@ -7,6 +7,7 @@ use App\Imports\ProductImport;
 use App\Models\Product;
 use App\Models\ViewProduct;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 
 class ProductService
@@ -40,15 +41,13 @@ class ProductService
         return $product;
     }
 
-    public function edit($id)
+    public function edit($product)
     {
-        return ViewProduct::findOrFail($id);
+        return $product;
     }
 
-    public function update(array $data, $id)
+    public function update($product, array $data)
     {
-        $product = Product::findOrFail($id);
-
         $product->update([
             "barcode" => $data["barcode"],
             "sku" => $data["sku"],
@@ -70,21 +69,72 @@ class ProductService
         return $product;
     }
 
-    public function destroy($id)
+    public function destroy($product)
     {
-        $product = Product::findOrFail($id);
+        DB::beginTransaction();
 
-        if (!$product) {
-            return false;
+        try {
+            // unlink image in storage public
+            $imageItems = DB::table("image_items")->where("product_id", $product->id)->get();
+            foreach ($imageItems as $item) {
+                if (file_exists(public_path("images/" . $item->name))) {
+                    unlink(public_path("images/" . $item->name));
+                }
+            }
+
+            // delete image_items
+            DB::table('image_items')->where("product_id", $product->id)->delete();
+
+            // delete product
+            $product->forceDelete();
+
+            DB::commit();
+
+            request()->session()->put("success", "Đã xóa sản phẩm thành công");
+        } catch (QueryException $e) {
+            DB::rollBack();
+
+            if ($e->getCode() == 23000) {
+                request()->session()->put("error", "Sản phẩm chứa thông tin chi tiết đơn hàng, không thể xóa");
+            } else {
+                request()->session()->put("error", $e->getMessage());
+            }
         }
-
-        $product->forceDelete($id);
-        return true;
     }
 
     public function deleteSelected($ids)
     {
-        Product::whereIn('id', $ids)->forceDelete();
+        DB::beginTransaction();
+
+        try {
+            // unlink image in storage public
+            foreach ($ids as $id) {
+                $imageItems = DB::table("image_items")->where("product_id", $id)->get();
+                foreach ($imageItems as $item) {
+                    if (file_exists(public_path("images/" . $item->name))) {
+                        unlink(public_path("images/" . $item->name));
+                    }
+                }
+            }
+
+            // delete image_items
+            DB::table('image_items')->whereIn("product_id", $ids)->delete();
+
+            // delete product
+            Product::whereIn('id', $ids)->forceDelete();
+
+            DB::commit();
+
+            request()->session()->put("success", "Đã xóa sản phẩm thành công");
+        } catch (QueryException $e) {
+            DB::rollBack();
+
+            if ($e->getCode() == 23000) {
+                request()->session()->put("error", "Sản phẩm chứa thông tin chi tiết đơn hàng, không thể xóa");
+            } else {
+                request()->session()->put("error", $e->getMessage());
+            }
+        }
     }
 
     public function export($ids)

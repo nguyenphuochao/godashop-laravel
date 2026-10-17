@@ -110,48 +110,45 @@ Route::get('password-render', function () {
     echo Hash::make('123456');
 });
 
-Route::prefix('admin')->namespace('App\Http\Controllers\Admin')->group(function () {
-    Route::get('login', 'LoginController@index')->name('admin.login.form');
-    Route::post('login', 'LoginController@login')->name('admin.login');
-    Route::post('logout', 'LoginController@logout')->name('admin.logout');
+Route::prefix('admin')->name('admin.')->namespace('App\Http\Controllers\Admin')->group(function () {
+    Route::get('login', 'LoginController@index')->name('login.form');
+    Route::post('login', 'LoginController@login')->name('login');
+    Route::post('logout', 'LoginController@logout')->name('logout');
 
     Route::middleware(['authAdmin:admin'])->group(function () {
         // dashboard
         Route::get('/', 'DashboardController@index')->name('dashboard');
         // order
-        Route::post("order/comfirm/{orderId}", 'OrderController@confirm')->name("admin.order.confirm");
+        Route::post("order/comfirm/{orderId}", 'OrderController@confirm')->name("order.confirm");
         // category
-        Route::get('category', 'CategoryController@index')->name('admin.category.index');
-        Route::get('category/create', 'CategoryController@create')->name('admin.category.create');
-        Route::post('category/store', 'CategoryController@store')->name('admin.category.store');
-        Route::get('category/edit/{id}', 'CategoryController@edit')->name('admin.category.edit');
-        Route::post('category/update/{id}', 'CategoryController@update')->name('admin.category.update');
-        Route::post('category/destroy/{id}', 'CategoryController@destroy')->name('admin.category.destroy');
-        Route::post('category/deletes', 'CategoryController@deletes')->name('admin.category.deletes');
+        Route::get('category', 'CategoryController@index')->name('category.index');
+        Route::get('category/create', 'CategoryController@create')->name('category.create');
+        Route::post('category/store', 'CategoryController@store')->name('category.store');
+        Route::get('category/edit/{id}', 'CategoryController@edit')->name('category.edit');
+        Route::post('category/update/{id}', 'CategoryController@update')->name('category.update');
+        Route::post('category/destroy/{id}', 'CategoryController@destroy')->name('category.destroy');
+        Route::post('category/deletes', 'CategoryController@deletes')->name('category.deletes');
         // product
-        Route::get('product', 'ProductController@index')->name('admin.product.index');
-        Route::get('product/create', 'ProductController@create')->name('admin.product.create');
-        Route::post('product/store', 'ProductController@store')->name('admin.product.store');
-        Route::get('product/edit/{id}', 'ProductController@edit')->name('admin.product.edit');
-        Route::post("product/deletes", 'ProductController@deletes')->name('admin.product.deletes');
-        Route::post("product/exportcsv", 'ProductController@exportCSV')->name('admin.product.exportCSV');
-        Route::get("product/formimport", 'ProductController@formImportCSV')->name('admin.product.formImportCSV');
-        Route::post("product/importcsv", 'ProductController@importCSV')->name('admin.product.importCSV');
+        Route::post("product/deletes", 'ProductController@deletes')->name('product.deletes');
+        Route::post("product/exportcsv", 'ProductController@exportCSV')->name('product.exportCSV');
+        Route::get("product/formimport", 'ProductController@formImportCSV')->name('product.formImportCSV');
+        Route::post("product/importcsv", 'ProductController@importCSV')->name('product.importCSV');
+        Route::resource('product', 'ProductController');
         // role
-        Route::get('role', 'RoleController@index')->name('admin.role.index');
-        Route::get('role/create', 'RoleController@create')->name('admin.role.create');
-        Route::post('role/store', 'RoleController@store')->name('admin.role.store');
-        Route::get('role/edit/{id}', 'RoleController@edit')->name('admin.role.edit');
-        Route::post('role/update/{id}', 'RoleController@update')->name('admin.role.update');
-        Route::get('role/list/action/{id}', 'RoleController@listRoleAction')->name('admin.role.listRoleAction');
-        Route::post('role/list/action/{id}', 'RoleController@updateRoleAction')->name('admin.role.updateRoleAction');
+        Route::get('role', 'RoleController@index')->name('role.index');
+        Route::get('role/create', 'RoleController@create')->name('role.create');
+        Route::post('role/store', 'RoleController@store')->name('role.store');
+        Route::get('role/edit/{id}', 'RoleController@edit')->name('role.edit');
+        Route::post('role/update/{id}', 'RoleController@update')->name('role.update');
+        Route::get('role/list/action/{id}', 'RoleController@listRoleAction')->name('role.listRoleAction');
+        Route::post('role/list/action/{id}', 'RoleController@updateRoleAction')->name('role.updateRoleAction');
         // staff
-        Route::get('staff', 'StaffController@index')->name('admin.staff.index');
-        Route::get('staff/create', 'StaffController@create')->name('admin.staff.create');
-        Route::post('staff/store', 'StaffController@store')->name('admin.staff.store');
-        Route::get('staff/edit/{id}', 'StaffController@edit')->name('admin.staff.edit');
-        Route::put('staff/update/{id}', 'StaffController@update')->name('admin.staff.update');
-        Route::delete('staff/destroy/{id}', 'StaffController@destroy')->name('admin.staff.destroy');
+        Route::get('staff', 'StaffController@index')->name('staff.index');
+        Route::get('staff/create', 'StaffController@create')->name('staff.create');
+        Route::post('staff/store', 'StaffController@store')->name('staff.store');
+        Route::get('staff/edit/{id}', 'StaffController@edit')->name('staff.edit');
+        Route::put('staff/update/{id}', 'StaffController@update')->name('staff.update');
+        Route::delete('staff/destroy/{id}', 'StaffController@destroy')->name('staff.destroy');
     });
 });
 
