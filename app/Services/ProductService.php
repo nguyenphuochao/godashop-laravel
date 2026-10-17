@@ -73,6 +73,8 @@ class ProductService
     {
         DB::beginTransaction();
 
+        $data = [];
+
         try {
             // unlink image in storage public
             $imageItems = DB::table("image_items")->where("product_id", $product->id)->get();
@@ -90,21 +92,27 @@ class ProductService
 
             DB::commit();
 
-            request()->session()->put("success", "Đã xóa sản phẩm thành công");
+            $data["success"] = "Đã xóa sản phẩm thành công";
+
+            return $data;
         } catch (QueryException $e) {
             DB::rollBack();
 
             if ($e->getCode() == 23000) {
-                request()->session()->put("error", "Sản phẩm chứa thông tin chi tiết đơn hàng, không thể xóa");
+                $data["error"] = "Sản phẩm chứa thông tin chi tiết đơn hàng, không thể xóa";
             } else {
-                request()->session()->put("error", $e->getMessage());
+                $data["error"] = $e->getMessage();
             }
+
+            return $data;
         }
     }
 
     public function deleteSelected($ids)
     {
         DB::beginTransaction();
+
+        $data = [];
 
         try {
             // unlink image in storage public
@@ -125,15 +133,19 @@ class ProductService
 
             DB::commit();
 
-            request()->session()->put("success", "Đã xóa sản phẩm thành công");
+            $data["success"] = "Đã xóa sản phẩm thành công";
+
+            return $data;
         } catch (QueryException $e) {
             DB::rollBack();
 
             if ($e->getCode() == 23000) {
-                request()->session()->put("error", "Sản phẩm chứa thông tin chi tiết đơn hàng, không thể xóa");
+                $data["error"] = "Sản phẩm chứa thông tin chi tiết đơn hàng, không thể xóa";
             } else {
-                request()->session()->put("error", $e->getMessage());
+                $data["error"] = $e->getMessage();
             }
+
+            return $data;
         }
     }
 

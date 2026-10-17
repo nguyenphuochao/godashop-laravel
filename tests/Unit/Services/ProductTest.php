@@ -106,9 +106,9 @@ class ProductTest extends TestCase
     {
         $product = $this->productService->create($this->product);
 
-        $found = $this->productService->edit($product->id);
+        $found = $this->productService->edit($product);
 
-        $this->assertInstanceOf(ViewProduct::class, $found);
+        $this->assertInstanceOf(Product::class, $found);
         $this->assertEquals($found->name, $product->name);
         $this->assertEquals($found->description, $product->description);
     }
@@ -120,9 +120,9 @@ class ProductTest extends TestCase
 
     public function testUpdate()
     {
-        $productId = 114;
+        $product = $this->productService->create($this->product);
 
-        $productUpdated = $this->productService->update($this->product, $productId);
+        $productUpdated = $this->productService->update($product, $this->product);
 
         // Kiểm tra dữ liệu trả về
         $this->assertInstanceOf(Product::class, $productUpdated);
@@ -155,10 +155,10 @@ class ProductTest extends TestCase
     {
         $product = $this->productService->create($this->product);
 
-        $deleteProduct = $this->productService->destroy($product->id);
+        $deleteProduct = $this->productService->destroy($product);
 
-        // Kiểm tra dữ liệu có trả về true hay không
-        $this->assertTrue($deleteProduct);
+        // Kiểm tra dữ liệu có has key hay không
+        $this->assertArrayHasKey("success", $deleteProduct);
 
         // kiểm tra xem dữ liệu đã được xóa trong cơ sở dữ liệu hay chưa
         $this->assertDatabaseMissing('products', $product->toArray());

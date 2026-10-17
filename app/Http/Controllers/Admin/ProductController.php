@@ -133,7 +133,13 @@ class ProductController extends Controller
         // authorization
         $this->authorize("delete", $product);
 
-        $this->productService->destroy($product);
+        $productDeleted = $this->productService->destroy($product);
+
+        if(isset($productDeleted["success"])) {
+            request()->session()->put("success", $productDeleted["success"]);
+        } else {
+            request()->session()->put("error", $productDeleted["error"]);
+        }
 
         return redirect()->route('admin.product.index');
     }
@@ -148,7 +154,13 @@ class ProductController extends Controller
             return redirect()->route('admin.product.index');;
         }
 
-        $this->productService->deleteSelected($request->ids);
+        $productDeleted = $this->productService->deleteSelected($request->ids);
+
+        if(isset($productDeleted["success"])) {
+            request()->session()->put("success", $productDeleted["success"]);
+        } else {
+            request()->session()->put("error", $productDeleted["error"]);
+        }
 
         request()->session()->put("success", "Đã xóa sản phẩm thành công");
         return redirect()->route('admin.product.index');
