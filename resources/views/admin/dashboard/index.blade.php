@@ -14,7 +14,7 @@
                 <a href="?type=3months&from_date=<?= date("Y-m-d", strtotime("-3 months")) ?>&to_date=<?= date("Y-m-d") ?>" class="{{$type == "3months" ? "active" : ""}} btn btn-primary">3 tháng</a>
                 <a href="?type=thisyear&from_date=<?= date("Y-01-01") ?>&to_date=<?= date("Y-m-d") ?>" class="{{$type == "thisyear" ? "active" : ""}} btn btn-primary">Năm này</a>
                 <div class="dropdown" style="display:inline-block">
-                    <form action="{{route("dashboard")}}">
+                    <form action="{{route("admin.dashboard")}}">
                         <a class="btn btn-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
