@@ -24,11 +24,11 @@ class ProductPolicy
     /**
      * Determine whether the user can view the model.
      *
-     * @param  \App\Models\Customer  $customer
+     * @param  \App\Models\Staff  $staff
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(Customer $customer, Product $product)
+    public function view(Staff $staff, Product $product)
     {
         //
     }
@@ -47,13 +47,13 @@ class ProductPolicy
     /**
      * Determine whether the user can update the model.
      *
-     * @param  \App\Models\Customer  $customer
-     * @param  \App\Models\Product  $product
+     * @param  \App\Models\Staff $staff
+     * @param  \App\Models\Product $product
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(Customer $customer, Product $product)
+    public function update(Staff $staff, Product $product)
     {
-        //
+        return $staff->hasPermission("edit_product");
     }
 
     /**
@@ -71,11 +71,11 @@ class ProductPolicy
     /**
      * Determine whether the user can restore the model.
      *
-     * @param  \App\Models\Customer  $customer
+     * @param  \App\Models\Staff  $Staff
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(Customer $customer, Product $product)
+    public function restore(Staff $Staff, Product $product)
     {
         //
     }
@@ -83,11 +83,11 @@ class ProductPolicy
     /**
      * Determine whether the user can permanently delete the model.
      *
-     * @param  \App\Models\Customer  $customer
+     * @param  \App\Models\Staff  $staff
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(Customer $customer, Product $product)
+    public function forceDelete(Staff $staff, Product $product)
     {
         //
     }

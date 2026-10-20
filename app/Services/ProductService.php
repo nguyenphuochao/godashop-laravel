@@ -56,7 +56,7 @@ class ProductService
             "discount_percentage" => 0,
             "discount_from_date" => null,
             "discount_to_date" => null,
-            "featured_image" => $data["featured_image"],
+            "featured_image" => $data["featured_image"] ?? $product->featured_image,
             "inventory_qty" => $data["inventory_number"],
             "category_id" => (int)$data["category"],
             "brand_id" => (int)$data["brand"],

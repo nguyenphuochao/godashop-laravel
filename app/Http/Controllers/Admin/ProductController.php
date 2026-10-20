@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Exports\ProductExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProductRequest;
+use App\Http\Requests\UpdateProductRequest;
 use App\Models\Product;
 use App\Services\ProductService;
 use Illuminate\Http\Request;
@@ -103,6 +104,9 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
+        // authorization
+        $this->authorize("update", $product);
+
         $product = $this->productService->edit($product);
 
         return view("admin.product.edit", [
@@ -114,12 +118,29 @@ class ProductController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  Product $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateProductRequest $request, Product $product)
     {
-        //
+        // authorization
+        $this->authorize("update", $product);
+
+        $filename = null;
+
+        if($request->hasFile("featured_image")) {
+            $filename = $request->file('featured_image')->getClientOriginalName();
+            $request->file('featured_image')->storeAs(
+                'images', $filename, 'godapublic'
+            );
+        }
+
+        $data = $request->all();
+        $data["featured_image"] = $filename;
+        $productUpdated = $this->productService->update($product, $data);
+
+        $request->session()->put("success", "Cập nhật thành công ". $productUpdated->name);
+        return redirect()->route('admin.product.index');
     }
 
     /**

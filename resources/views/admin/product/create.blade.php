@@ -99,7 +99,7 @@
                     <input type="submit" class="btn btn-primary btn-sm" value="Lưu" name="save">
                 </div>
             </form>
-            <script type="text/javascript" src="../../vendor/ckeditor/ckeditor.js"></script>
+            <script type="text/javascript" src="{{ asset("") }}adm/vendor/ckeditor/ckeditor.js"></script>
             <script>
                 CKEDITOR.replace('description');
             </script>

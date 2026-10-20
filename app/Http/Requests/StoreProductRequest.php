@@ -30,7 +30,7 @@ class StoreProductRequest extends FormRequest
             "wholesale_price" => "required",
             "inventory_number" => "required",
             "category" => "required",
-            "branch" => "required",
+            "brand" => "required",
             "featured_image" => "required",
             "description" => "required",
         ];
@@ -50,7 +50,7 @@ class StoreProductRequest extends FormRequest
             'wholesale_price.required' => 'Vui lòng nhập giá bán lẻ',
             'inventory_number.required' => 'Vui lòng nhập số lượng tồn kho',
             'category.required' => 'Vui lòng chọn danh mục',
-            'branch.required' => 'Vui lòng chọn thương hiệu',
+            'brand.required' => 'Vui lòng chọn thương hiệu',
             'featured_image.required' => 'Vui lòng hình ảnh',
             'description.required' => 'Vui lòng nhập mô tả',
         ];

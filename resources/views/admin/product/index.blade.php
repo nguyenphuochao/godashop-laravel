@@ -72,8 +72,10 @@
                                             <td>{{$product->created_date}}</td>
                                             <td><a href="../../pages/comment/list.html">Đánh giá</a></td>
                                             <td><a href="../../pages/image/list.html">Hình ảnh</a></td>
-                                            <td><input type="button" onclick="Edit('25');" value="Sửa"
-                                                    class="btn btn-warning btn-sm"></td>
+                                            <td>
+                                                <a href="{{route("admin.product.edit", ["product" => $product->id])}}" class="btn btn-warning btn-sm">
+                                                    Sửa
+                                                </a>
                                             <td>
                                                 <input
                                                     type="button"
