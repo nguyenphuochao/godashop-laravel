@@ -17,6 +17,8 @@ class CommentController extends Controller
      */
     public function index()
     {
+        $this->authorize("viewAny", Comment::class);
+
         $products = ViewProduct::all();
 
         return view("admin.comment.index", [
@@ -87,6 +89,8 @@ class CommentController extends Controller
      */
     public function destroy(Comment $comment)
     {
+        $this->authorize("delete", $comment);
+
         $comment->delete();
 
         request()->session()->put("success", "Xóa thành công comment");
@@ -96,6 +100,8 @@ class CommentController extends Controller
 
     public function detail(Request $request)
     {
+        $this->authorize("detail", Comment::class);
+
         $productId = $request->productId;
 
         $product = Product::findOrFail($productId);
