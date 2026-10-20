@@ -151,6 +151,7 @@ Route::prefix('admin')->name('admin.')->namespace('App\Http\Controllers\Admin')-
         Route::delete('staff/destroy/{id}', 'StaffController@destroy')->name('staff.destroy');
         // comment
         Route::get("comment/detail", 'CommentController@detail')->name('comment.detail');
+        Route::delete("comment/deletes", 'CommentController@deletes')->name('comment.deletes');
         Route::resource('comment', 'CommentController');
 
     });

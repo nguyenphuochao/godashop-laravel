@@ -95,7 +95,7 @@ class CommentController extends Controller
 
         request()->session()->put("success", "Xóa thành công comment");
 
-        return redirect()->route('admin.comment.index');
+        return redirect()->back();
     }
 
     public function detail(Request $request)
@@ -109,5 +109,21 @@ class CommentController extends Controller
         return view("admin.comment.detail", [
             'product' => $product
         ]);
+    }
+
+    public function deletes(Request $request, Comment $comment)
+    {
+        $this->authorize("delete", $comment);
+
+        if(empty($request->ids)) {
+            $request->session()->put("error", "Vui lòng chọn bình luận cần xóa!");
+            return redirect()->back();
+        }
+
+        Comment::whereIn('id', $request->ids)->forceDelete();
+
+        request()->session()->put("success", "Xóa thành công bình luận đã chọn!");
+
+        return redirect()->back();
     }
 }
