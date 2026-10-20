@@ -70,7 +70,7 @@
                                             <td>{{$product->featured === 1 ? "Có" : ""}}</td>
                                             <td>{{$product->category->name}} </td>
                                             <td>{{$product->created_date}}</td>
-                                            <td><a href="../../pages/comment/list.html">Đánh giá</a></td>
+                                            <td><a href="{{route('admin.comment.detail', array('productId' => $product->id))}}">Đánh giá</a></td>
                                             <td><a href="../../pages/image/list.html">Hình ảnh</a></td>
                                             <td>
                                                 <a href="{{route("admin.product.edit", ["product" => $product->id])}}" class="btn btn-warning btn-sm">

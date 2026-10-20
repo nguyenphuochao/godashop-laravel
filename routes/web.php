@@ -149,6 +149,10 @@ Route::prefix('admin')->name('admin.')->namespace('App\Http\Controllers\Admin')-
         Route::get('staff/edit/{id}', 'StaffController@edit')->name('staff.edit');
         Route::put('staff/update/{id}', 'StaffController@update')->name('staff.update');
         Route::delete('staff/destroy/{id}', 'StaffController@destroy')->name('staff.destroy');
+        // comment
+        Route::get("comment/detail", 'CommentController@detail')->name('comment.detail');
+        Route::resource('comment', 'CommentController');
+
     });
 });
 
