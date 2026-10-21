@@ -15,12 +15,14 @@
 
             <!-- DataTables Example -->
             <div class="action-bar">
-                <label style="cursor: pointer;" for="delete" class="btn btn-danger btn-sm">Xóa</label>
+                <button style="cursor: pointer;" for="delete" class="btn btn-danger btn-sm delete" data-url="{{route("admin.comment.deletes")}}">Xóa</button>
             </div>
             <div class="card mb-3">
                 <div class="card-body">
                     <div class="table-responsive">
-                        <form action="index.php?c=comment&a=deletes" method="POST">
+                        <form action="#" method="POST" id="formComment">
+                            @csrf
+                            @method("DELETE")
                             <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
                                 <thead>
                                     <tr>
@@ -44,19 +46,13 @@
                                         <td><?= $comment->description ?></td>
                                         <td>
                                             <a data-url="{{ route('admin.comment.destroy', ['comment' => $comment->id]) }}"
-                                                class="btn btn-danger text-light delete">Xóa
+                                                class="btn btn-danger text-light delete" style="cursor: pointer;">Xóa
                                             </a>
                                         </td>
                                     </tr>
                                     <?php endforeach ?>
                                 </tbody>
                             </table>
-                        </form>
-
-                        {{-- Form delete comment --}}
-                        <form action="#" method="POST" id="formDeleteComment">
-                            @csrf
-                            @method('DELETE')
                         </form>
                     </div>
                 </div>
@@ -74,8 +70,8 @@
             if(!confirm('Bạn muốn xóa comment này hok?')) return;
 
             const action = $(this).attr("data-url");
-            $("#formDeleteComment").attr("action", action);
-            $("#formDeleteComment").submit();
+            $("#formComment").attr("action", action);
+            $("#formComment").submit();
         });
     </script>
 

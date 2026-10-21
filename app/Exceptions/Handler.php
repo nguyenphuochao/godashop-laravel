@@ -37,4 +37,10 @@ class Handler extends ExceptionHandler
             //
         });
     }
+
+    // Configure it to always return JSON instead of rendering HTML code
+    protected function shouldReturnJson($request, Throwable $e)
+    {
+        return true;
+    }
 }

@@ -8,12 +8,12 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Category extends Model
 {
+    use HasFactory;
 
     public $timestamps = false;
 
     protected $fillable = ['name'];
 
-    use HasFactory;
     /**
      * Get all of the comments for the Category
      *
