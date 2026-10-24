@@ -23,7 +23,7 @@ class UpdateCategoryTest extends TestCase
             'name' => $this->faker->name
         ];
 
-        $response = $this->json('PUT', route('api.category.update', $category->id), $dataUpdate);
+        $response = $this->json('PUT', route('api.categories.update', $category->id), $dataUpdate);
 
         $response->assertStatus(Response::HTTP_OK);
 
@@ -51,12 +51,12 @@ class UpdateCategoryTest extends TestCase
             'name' => $this->faker->name
         ];
 
-        $response = $this->json('PUT', route('api.category.update', $categoryId), $dataUpdate);
+        $response = $this->json('PUT', route('api.categories.update', $categoryId), $dataUpdate);
 
         $response->assertStatus(Response::HTTP_NOT_FOUND);
 
         $response->assertJson(fn(AssertableJson $json) =>
-            $json->has('message')
+            $json->has('message')->etc()
         );
     }
 }

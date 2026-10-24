@@ -15,11 +15,12 @@ class GetListCategoryTest extends TestCase
      * @test
      * phpunit --filter user_can_get_list_category
      * php artisan test --filter user_can_get_list_category
+     * php artisan test --testsuite=Feature
      */
     public function user_can_get_list_category()
     {
         $categoryCount = Category::count();
-        $response = $this->getJson(route('api.category.index'));
+        $response = $this->getJson(route('api.categories.index'));
 
         // kiểm tra trạng thái status là 200
         $response->assertStatus(Response::HTTP_OK);

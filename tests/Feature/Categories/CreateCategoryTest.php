@@ -20,12 +20,12 @@ class CreateCategoryTest extends TestCase
             'name' => $this->faker->name
         ];
 
-        $response = $this->json('POST', route('api.category.store', $dataCreate));
+        $response = $this->json('POST', route('api.categories.store', $dataCreate));
 
         $response->assertStatus(Response::HTTP_CREATED);
 
         $response->assertJson(fn(AssertableJson $json) =>
-            $json->where('name', $dataCreate['name'])
+            $json->where('name', $dataCreate['name'])->etc()
         );
 
         // check trong db có data hay không?
@@ -44,7 +44,7 @@ class CreateCategoryTest extends TestCase
             'name' => ''
         ];
 
-        $response = $this->json('POST', route('api.category.store', $dataCreate));
+        $response = $this->json('POST', route('api.categories.store', $dataCreate));
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
 

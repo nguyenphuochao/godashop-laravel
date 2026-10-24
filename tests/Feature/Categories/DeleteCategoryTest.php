@@ -21,7 +21,7 @@ class DeleteCategoryTest extends TestCase
 
         $categoryCountBeforeDelete = Category::count();
 
-        $response = $this->json('DELETE', route('api.category.delete', $category->id));
+        $response = $this->json('DELETE', route('api.categories.destroy', $category->id));
 
         $categoryCountAfterDelete = Category::count();
 

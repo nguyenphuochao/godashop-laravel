@@ -18,7 +18,7 @@ class GetCategoryTest extends TestCase
     {
         $category = Category::factory()->create();
 
-        $response = $this->getJson(route('api.category.show', $category->id));
+        $response = $this->getJson(route('api.categories.show', $category->id));
 
         $response->assertStatus(Response::HTTP_OK);
 
@@ -36,13 +36,13 @@ class GetCategoryTest extends TestCase
     {
         $categoryId = -1;
 
-        $response = $this->getJson(route('api.category.show', $categoryId));
+        $response = $this->getJson(route('api.categories.show', $categoryId));
 
         $response->assertStatus(Response::HTTP_NOT_FOUND);
 
         // kiểm tra có chứa key hay không?
         $response->assertJson(fn(AssertableJson $json) =>
-            $json->has('message')
+            $json->has('message')->etc()
         );
     }
 }
